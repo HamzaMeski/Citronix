@@ -1,4 +1,4 @@
-package com.WaitingList.BACKEND.exception;
+package com.citronix.backend.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

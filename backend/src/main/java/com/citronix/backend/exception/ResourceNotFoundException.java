@@ -1,4 +1,4 @@
-package com.WaitingList.BACKEND.exception;
+package com.citronix.backend.exception;
 
 public class ResourceNotFoundException extends RuntimeException {
     public ResourceNotFoundException(String message) {
