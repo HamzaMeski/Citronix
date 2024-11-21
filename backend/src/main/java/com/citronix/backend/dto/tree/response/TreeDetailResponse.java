@@ -1,5 +1,6 @@
 package com.citronix.backend.dto.tree.response;
 
+import com.citronix.backend.util.constants.TreeStatus;
 import lombok.Data;
 import java.time.LocalDate;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 public class TreeDetailResponse {
     private Long id;
     private LocalDate plantingDate;
-    private String status;
+    private TreeStatus status;
     private Long fieldId;
     private String fieldName;
     private int ageInYears;
