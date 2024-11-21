@@ -87,9 +87,4 @@ public interface TreeMapper extends BaseMapper<Tree, TreeResponse, CreateTreeReq
                 .sorted(Comparator.comparing(TreeHarvestResponse::getHarvestDate).reversed())
                 .collect(Collectors.toList());
     }
-
-    @AfterMapping
-    default void setHarvestHistory(@MappingTarget TreeDetailResponse response, Tree tree) {
-        response.setHarvestHistory(mapHarvestHistory(tree.getHarvestDetails()));
-    }
 }
