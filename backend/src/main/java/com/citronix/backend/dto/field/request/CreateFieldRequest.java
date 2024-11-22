@@ -12,6 +12,6 @@ public class CreateFieldRequest {
 
     @NotNull(message = "Area is required")
     @Positive(message = "Area must be positive")
-    @DecimalMin(value = "10000", message = "Field area must be at least 10 000 m²")
+    @DecimalMin(value = "1000", message = "Field area must be at least 1 000 m²")
     private Double areaInSquareMeters;
 }

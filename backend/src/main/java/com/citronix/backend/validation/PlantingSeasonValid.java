@@ -12,4 +12,4 @@ public @interface PlantingSeasonValid {
     String message() default "Trees can only be planted between March and May";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
-} 
+}

@@ -10,7 +10,7 @@ import org.mapstruct.*;
 
 @Mapper(componentModel = "spring", uses = {FieldMapper.class})
 public interface FarmMapper extends BaseMapper<Farm, FarmResponse, CreateFarmRequest, UpdateFarmRequest> {
-    
+
     @Override
     @Mapping(target = "fields", ignore = true)
     Farm toEntity(CreateFarmRequest request);
