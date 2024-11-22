@@ -20,6 +20,5 @@ public class CreateFarmRequest {
     @DecimalMin(value = "10000", message = "Farm area must be at least 10 000 m²")
     private Double totalAreaInSquareMeters;
 
-    @NotNull(message = "Creation date is required")
     private LocalDate creationDate;
 }

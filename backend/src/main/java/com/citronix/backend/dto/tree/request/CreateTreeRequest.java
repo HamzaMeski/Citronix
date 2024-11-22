@@ -11,6 +11,6 @@ public class CreateTreeRequest {
     private Long fieldId;
 
     @NotNull(message = "Planting date is required")
-    @PlantingSeasonValid(message = "Trees can only be planted between March and May")
+    @PlantingSeasonValid
     private LocalDate plantingDate;
 }
