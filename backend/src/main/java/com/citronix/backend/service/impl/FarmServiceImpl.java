@@ -16,6 +16,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Service
 @RequiredArgsConstructor
 public class FarmServiceImpl implements FarmService {
@@ -26,8 +29,14 @@ public class FarmServiceImpl implements FarmService {
     @Transactional
     public FarmResponse create(CreateFarmRequest request) {
         validateCreate(request);
+
         Farm farm = farmMapper.toEntity(request);
-        return farmMapper.toDto(farmRepository.save(farm));
+
+        LocalDate creationDate = LocalDate.now();
+        farm.setCreationDate(creationDate);
+
+        Farm createdFarm = farmRepository.save(farm);
+        return farmMapper.toDto(createdFarm);
     }
 
     @Override
