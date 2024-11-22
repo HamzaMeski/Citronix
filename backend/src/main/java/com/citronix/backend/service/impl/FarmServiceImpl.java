@@ -82,7 +82,7 @@ public class FarmServiceImpl implements FarmService {
 
     private void validateUpdate(Farm farm, UpdateFarmRequest request) {
         double usedArea = farm.getFields().stream()
-                .mapToDouble(field -> field.getArea())
+                .mapToDouble(field -> field.getAreaInSquareMeters())
                 .sum();
 
         if (request.getTotalAreaInSquareMeters() < usedArea) {

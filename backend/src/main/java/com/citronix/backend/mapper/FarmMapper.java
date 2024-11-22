@@ -18,20 +18,20 @@ public interface FarmMapper extends BaseMapper<Farm, FarmResponse, CreateFarmReq
     @Override
     @Mapping(target = "numberOfFields", expression = "java(farm.getFields().size())")
     @Mapping(target = "usedAreaInSquareMeters", expression = "java(calculateUsedArea(farm))")
-    @Mapping(target = "availableAreaInSquareMeters", expression = "java(farm.getTotalArea() - calculateUsedArea(farm))")
+    @Mapping(target = "availableAreaInSquareMeters", expression = "java(farm.getTotalAreaInSquareMeters() - calculateUsedArea(farm))")
     FarmResponse toDto(Farm farm);
 
     @Named("toDetailResponse")
     @Mapping(target = "fields", source = "fields")
     @Mapping(target = "usedAreaInSquareMeters", expression = "java(calculateUsedArea(farm))")
-    @Mapping(target = "availableAreaInSquareMeters", expression = "java(farm.getTotalArea() - calculateUsedArea(farm))")
+    @Mapping(target = "availableAreaInSquareMeters", expression = "java(farm.getTotalAreaInSquareMeters() - calculateUsedArea(farm))")
     @Mapping(target = "totalTrees", expression = "java(calculateTotalTrees(farm))")
     @Mapping(target = "totalProduction", expression = "java(calculateTotalProduction(farm))")
     FarmDetailResponse toDetailResponse(Farm farm);
 
     default Double calculateUsedArea(Farm farm) {
         return farm.getFields().stream()
-                .mapToDouble(Field::getArea)
+                .mapToDouble(Field::getAreaInSquareMeters)
                 .sum();
     }
 

@@ -29,7 +29,7 @@ public class Farm {
 
     @NotNull(message = "Total area is required")
     @Positive(message = "Total area must be positive")
-    private Double totalArea;
+    private Double totalAreaInSquareMeters;
 
     @NotNull(message = "Creation date is required")
     private LocalDate creationDate;

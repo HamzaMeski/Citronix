@@ -35,7 +35,7 @@ public interface FieldMapper extends BaseMapper<Field, FieldResponse, CreateFiel
 
     default int calculateMaxTreeCapacity(Field field) {
         // 100 trees per 10 000 m²
-        return (int) (field.getArea() * 100);
+        return (int) (field.getAreaInSquareMeters() * 100);
     }
 
     default Double calculateOccupancyRate(Field field) {
