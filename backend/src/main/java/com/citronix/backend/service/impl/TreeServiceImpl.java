@@ -37,7 +37,7 @@ public class TreeServiceImpl implements TreeService {
 
         Tree tree = treeMapper.toEntity(request);
         tree.setField(field);
-        tree.setStatus(calculateInitialStatus(request.getPlantingDate()));
+        tree.setStatus(calculateTreeStatus(request.getPlantingDate()));
 
         return treeMapper.toDto(treeRepository.save(tree));
     }
@@ -77,7 +77,7 @@ public class TreeServiceImpl implements TreeService {
     public void updateTreeStatus(Long id) {
         Tree tree = treeRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Tree not found"));
-        
+
         TreeStatus newStatus = calculateTreeStatus(tree.getPlantingDate());
         if (tree.getStatus() != newStatus) {
             tree.setStatus(newStatus);
@@ -105,10 +105,6 @@ public class TreeServiceImpl implements TreeService {
     private int calculateMaxTreeCapacity(Double areaInSquareMeters) {
         // 100 trees per hectare (10,000 m²)
         return (int) (areaInSquareMeters / 100);
-    }
-
-    private TreeStatus calculateInitialStatus(LocalDate plantingDate) {
-        return calculateTreeStatus(plantingDate);
     }
 
     private TreeStatus calculateTreeStatus(LocalDate plantingDate) {
