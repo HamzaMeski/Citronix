@@ -30,11 +30,11 @@ public interface FieldMapper extends BaseMapper<Field, FieldResponse, CreateFiel
     @Mapping(target = "numberOfTrees", expression = "java(field.getTrees().size())")
     @Mapping(target = "maxTreeCapacity", expression = "java(calculateMaxTreeCapacity(field))")
     @Mapping(target = "occupancyRate", expression = "java(calculateOccupancyRate(field))")
-    @Mapping(target = "productivityPerHectare", expression = "java(calculateProductivityPerHectare(field))")
+    @Mapping(target = "productivityPerSquareMeters", expression = "java(calculateProductivityPerSquareMeters(field))")
     FieldDetailResponse toDetailResponse(Field field);
 
     default int calculateMaxTreeCapacity(Field field) {
-        // 100 trees per hectare
+        // 100 trees per 10 000 m²
         return (int) (field.getArea() * 100);
     }
 
@@ -43,7 +43,7 @@ public interface FieldMapper extends BaseMapper<Field, FieldResponse, CreateFiel
         return maxCapacity > 0 ? (double) field.getTrees().size() / maxCapacity : 0.0;
     }
 
-    default Double calculateProductivityPerHectare(Field field) {
+    default Double calculateProductivityPerSquareMeters(Field field) {
         // TODO: Implement actual calculation based on tree productivity
         return 0.0;
     }

@@ -10,11 +10,11 @@ public class FarmDetailResponse {
     private Long id;
     private String name;
     private String location;
-    private Double totalAreaInHectares;
+    private Double totalAreaInSquareMeters;
     private LocalDate creationDate;
     private List<FieldResponse> fields;
-    private Double usedAreaInHectares;
-    private Double availableAreaInHectares;
+    private Double usedAreaInSquareMeters;
+    private Double availableAreaInSquareMeters;
     private int totalTrees;
     private Double totalProduction;
 }

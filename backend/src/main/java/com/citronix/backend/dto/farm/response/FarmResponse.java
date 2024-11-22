@@ -8,9 +8,9 @@ public class FarmResponse {
     private Long id;
     private String name;
     private String location;
-    private Double totalAreaInHectares;
+    private Double totalAreaInSquareMeters;
     private LocalDate creationDate;
     private int numberOfFields;
-    private Double usedAreaInHectares;
-    private Double availableAreaInHectares;
+    private Double usedAreaInSquareMeters;
+    private Double availableAreaInSquareMeters;
 }

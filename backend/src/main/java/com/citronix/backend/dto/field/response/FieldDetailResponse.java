@@ -7,12 +7,12 @@ import java.util.List;
 @Data
 public class FieldDetailResponse {
     private Long id;
-    private Double areaInHectares;
+    private Double areaInSquareMeters;
     private Long farmId;
     private String farmName;
     private List<TreeResponse> trees;
     private int numberOfTrees;
     private int maxTreeCapacity;
     private Double occupancyRate;
-    private Double productivityPerHectare;
+    private Double productivityPerSquareMeters;
 }

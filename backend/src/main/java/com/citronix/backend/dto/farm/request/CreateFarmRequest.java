@@ -17,8 +17,8 @@ public class CreateFarmRequest {
 
     @NotNull(message = "Total area is required")
     @Positive(message = "Total area must be positive")
-    @DecimalMin(value = "1.0", message = "Farm area must be at least 1 hectare")
-    private Double totalAreaInHectares;
+    @DecimalMin(value = "10000", message = "Farm area must be at least 10 000 m²")
+    private Double totalAreaInSquareMeters;
 
     @NotNull(message = "Creation date is required")
     private LocalDate creationDate;
