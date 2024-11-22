@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class FieldResponse {
     private Long id;
-    private Double areaInHectares;
+    private Double areaInSquareMeters;
     private Long farmId;
     private String farmName;
     private int numberOfTrees;

@@ -21,4 +21,4 @@ public interface SaleMapper {
     default void calculateTotalRevenue(@MappingTarget Sale sale) {
         sale.setTotalRevenue(sale.getQuantity() * sale.getUnitPrice());
     }
-} 
+}   

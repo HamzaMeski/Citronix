@@ -21,7 +21,7 @@ public class Field {
 
     @NotNull(message = "Area is required")
     @Positive(message = "Area must be positive")
-    private Double area;
+    private Double areaInSquareMeters;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "farm_id", nullable = false)
