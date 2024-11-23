@@ -17,21 +17,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
-public interface TreeMapper extends BaseMapper<Tree, TreeResponse, CreateTreeRequest, Void> {
+public interface TreeMapper {
 
-    @Override
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "field", ignore = true)
     @Mapping(target = "harvestDetails", ignore = true)
     @Mapping(target = "status", ignore = true)
     Tree toEntity(CreateTreeRequest request);
 
-    @Override
     @Mapping(target = "fieldId", source = "field.id")
     @Mapping(target = "fieldName", source = "field.farm.name")
     @Mapping(target = "ageInYears", expression = "java(calculateAge(tree.getPlantingDate()))")
     @Mapping(target = "expectedProductivityPerSeason", expression = "java(calculateExpectedProductivity(tree.getStatus()))")
-    TreeResponse toDto(Tree tree);
+    TreeResponse toResponse(Tree tree);
 
     @Named("toDetailResponse")
     @Mapping(target = "fieldId", source = "field.id")

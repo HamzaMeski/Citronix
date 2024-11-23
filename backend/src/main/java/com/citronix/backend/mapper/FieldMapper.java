@@ -8,20 +8,18 @@ import com.citronix.backend.entity.Field;
 import org.mapstruct.*;
 
 @Mapper(componentModel = "spring", uses = {TreeMapper.class})
-public interface FieldMapper extends BaseMapper<Field, FieldResponse, CreateFieldRequest, UpdateFieldRequest> {
+public interface FieldMapper {
 
-    @Override
     @Mapping(target = "farm", ignore = true)
     @Mapping(target = "trees", ignore = true)
     Field toEntity(CreateFieldRequest request);
 
-    @Override
     @Mapping(target = "farmId", source = "farm.id")
     @Mapping(target = "farmName", source = "farm.name")
     @Mapping(target = "numberOfTrees", expression = "java(field.getTrees().size())")
     @Mapping(target = "maxTreeCapacity", expression = "java(calculateMaxTreeCapacity(field))")
     @Mapping(target = "occupancyRate", expression = "java(calculateOccupancyRate(field))")
-    FieldResponse toDto(Field field);
+    FieldResponse toResponse(Field field);
 
     @Named("toDetailResponse")
     @Mapping(target = "farmId", source = "farm.id")

@@ -42,7 +42,7 @@ public class FieldServiceImpl implements FieldService {
         Field field = fieldMapper.toEntity(request);
         field.setFarm(farm);
 
-        return fieldMapper.toDto(fieldRepository.save(field));
+        return fieldMapper.toResponse(fieldRepository.save(field));
     }
 
     @Override
@@ -57,7 +57,7 @@ public class FieldServiceImpl implements FieldService {
         validateFieldUpdate(farm, request.getAreaInSquareMeters(), currentUsedArea, field);
 
         field.setAreaInSquareMeters(request.getAreaInSquareMeters());
-        return fieldMapper.toDto(fieldRepository.save(field));
+        return fieldMapper.toResponse(fieldRepository.save(field));
     }
 
     @Override
@@ -86,7 +86,7 @@ public class FieldServiceImpl implements FieldService {
             throw new ResourceNotFoundException("Farm not found");
         }
         return fieldRepository.findAllByFarmId(farmId).stream()
-                .map(fieldMapper::toDto)
+                .map(fieldMapper::toResponse)
                 .toList();
     }
 

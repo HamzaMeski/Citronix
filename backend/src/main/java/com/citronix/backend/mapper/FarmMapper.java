@@ -9,17 +9,17 @@ import com.citronix.backend.entity.Field;
 import org.mapstruct.*;
 
 @Mapper(componentModel = "spring", uses = {FieldMapper.class})
-public interface FarmMapper extends BaseMapper<Farm, FarmResponse, CreateFarmRequest, UpdateFarmRequest> {
+public interface FarmMapper {
 
-    @Override
     @Mapping(target = "fields", ignore = true)
     Farm toEntity(CreateFarmRequest request);
 
-    @Override
+    Farm updateEntity(UpdateFarmRequest updateFarmRequest, @MappingTarget Farm farm);
+
     @Mapping(target = "numberOfFields", expression = "java(farm.getFields().size())")
     @Mapping(target = "usedAreaInSquareMeters", expression = "java(calculateUsedArea(farm))")
     @Mapping(target = "availableAreaInSquareMeters", expression = "java(farm.getTotalAreaInSquareMeters() - calculateUsedArea(farm))")
-    FarmResponse toDto(Farm farm);
+    FarmResponse toResponse(Farm farm);
 
     @Named("toDetailResponse")
     @Mapping(target = "fields", source = "fields")

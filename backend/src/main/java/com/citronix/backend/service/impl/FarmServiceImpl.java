@@ -11,6 +11,7 @@ import com.citronix.backend.mapper.FarmMapper;
 import com.citronix.backend.repository.FarmRepository;
 import com.citronix.backend.service.FarmService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import java.time.LocalDate;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class FarmServiceImpl implements FarmService {
     private final FarmRepository farmRepository;
     private final FarmMapper farmMapper;
@@ -35,7 +37,7 @@ public class FarmServiceImpl implements FarmService {
         farm.setCreationDate(creationDate);
 
         Farm createdFarm = farmRepository.save(farm);
-        return farmMapper.toDto(createdFarm);
+        return farmMapper.toResponse(createdFarm);
     }
 
 
@@ -46,7 +48,7 @@ public class FarmServiceImpl implements FarmService {
         validateUpdate(farm, request);
 
         farmMapper.updateEntity(request, farm);
-        return farmMapper.toDto(farmRepository.save(farm));
+        return farmMapper.toResponse(farmRepository.save(farm));
     }
 
     @Override
@@ -60,7 +62,7 @@ public class FarmServiceImpl implements FarmService {
     @Override
     @Transactional(readOnly = true)
     public FarmResponse getById(Long id) {
-        return farmMapper.toDto(getFarmById(id));
+        return farmMapper.toResponse(getFarmById(id));
     }
 
     @Override
@@ -73,7 +75,7 @@ public class FarmServiceImpl implements FarmService {
     @Transactional(readOnly = true)
     public Page<FarmResponse> getAll(Pageable pageable) {
         return farmRepository.findAll(pageable)
-                .map(farmMapper::toDto);
+                .map(farmMapper::toResponse);
     }
 
     private Farm getFarmById(Long id) {
