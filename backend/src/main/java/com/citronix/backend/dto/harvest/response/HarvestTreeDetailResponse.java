@@ -9,7 +9,7 @@ public class HarvestTreeDetailResponse {
     private Long harvestId;
     private Long treeId;
     private Double quantity;
-    private String fieldName;
+    private String fieldId;
     private String farmName;
     private TreeStatus treeStatus;
     private int treeAge;
