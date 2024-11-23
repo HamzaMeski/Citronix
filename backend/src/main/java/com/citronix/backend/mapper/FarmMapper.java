@@ -14,7 +14,7 @@ public interface FarmMapper {
     @Mapping(target = "fields", ignore = true)
     Farm toEntity(CreateFarmRequest request);
 
-    Farm updateEntity(UpdateFarmRequest updateFarmRequest, @MappingTarget Farm farm);
+    void updateEntity(UpdateFarmRequest updateFarmRequest, @MappingTarget Farm farm);
 
     @Mapping(target = "numberOfFields", expression = "java(farm.getFields().size())")
     @Mapping(target = "usedAreaInSquareMeters", expression = "java(calculateUsedArea(farm))")

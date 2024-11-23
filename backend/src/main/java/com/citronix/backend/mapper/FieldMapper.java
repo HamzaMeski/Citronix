@@ -1,7 +1,6 @@
 package com.citronix.backend.mapper;
 
 import com.citronix.backend.dto.field.request.CreateFieldRequest;
-import com.citronix.backend.dto.field.request.UpdateFieldRequest;
 import com.citronix.backend.dto.field.response.FieldDetailResponse;
 import com.citronix.backend.dto.field.response.FieldResponse;
 import com.citronix.backend.entity.Field;
