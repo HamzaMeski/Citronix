@@ -28,7 +28,6 @@ public class Harvest {
     @NotNull(message = "Season is required")
     private Season season;
 
-    @NotNull(message = "Total quantity is required")
     @Positive(message = "Total quantity must be positive")
     private Double totalQuantity;
 
