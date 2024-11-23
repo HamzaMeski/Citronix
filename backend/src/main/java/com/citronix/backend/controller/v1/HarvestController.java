@@ -25,16 +25,11 @@ public class HarvestController {
         return harvestService.create(request);
     }
 
-    @PostMapping("/{harvestId}/details")
+    @PostMapping("/details")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void addHarvestDetail(
-            @PathVariable Long harvestId,
             @Valid @RequestBody AddHarvestDetailRequest request
     ) {
-        // Ensure the path variable matches the request body
-        if (!harvestId.equals(request.getHarvestId())) {
-            throw new ValidationException("Harvest ID in path must match ID in request body");
-        }
         harvestService.addHarvestDetail(request);
     }
 
