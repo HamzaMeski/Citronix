@@ -22,8 +22,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -60,6 +58,10 @@ public class HarvestServiceImpl implements HarvestService {
                 .build();
 
         harvest.getHarvestDetails().add(detail);
+
+        // update the total quantity in that harvest
+        harvest.setTotalQuantity(harvest.getTotalQuantity() + request.getQuantity());
+
         harvestRepository.save(harvest);
     }
 
@@ -130,8 +132,12 @@ public class HarvestServiceImpl implements HarvestService {
 
         // Validate tree productivity based on status
         double expectedProductivity = calculateExpectedProductivity(tree);
-        if (request.getQuantity() > expectedProductivity * 1.2) { // 20% tolerance
+        if (request.getQuantity() > expectedProductivity * 1.5) { // +50% tolerance
             throw new ValidationException("Harvest quantity exceeds expected productivity for tree's age");
+        }
+
+        if(request.getQuantity() < expectedProductivity * 0.5) { // -50 tolerance
+            throw new ValidationException("Harvest quantity is too much under the expected productivity for tree's age");
         }
     }
 
@@ -147,6 +153,7 @@ public class HarvestServiceImpl implements HarvestService {
     }
 
     private double calculateExpectedProductivity(Tree tree) {
+        System.out.println("tree age: "+ tree.getStatus());
         return switch (tree.getStatus()) {
             case YOUNG -> 2.5;
             case MATURE -> 12.0;
