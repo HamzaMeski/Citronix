@@ -39,7 +39,7 @@ public class TreeServiceImpl implements TreeService {
         tree.setField(field);
         tree.setStatus(calculateTreeStatus(request.getPlantingDate()));
 
-        return treeMapper.toDto(treeRepository.save(tree));
+        return treeMapper.toResponse(treeRepository.save(tree));
     }
 
     @Override
@@ -68,7 +68,7 @@ public class TreeServiceImpl implements TreeService {
             throw new ResourceNotFoundException("Field not found");
         }
         return treeRepository.findAllByFieldId(fieldId).stream()
-                .map(treeMapper::toDto)
+                .map(treeMapper::toResponse)
                 .toList();
     }
 
