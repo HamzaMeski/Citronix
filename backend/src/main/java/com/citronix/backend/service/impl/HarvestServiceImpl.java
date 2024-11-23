@@ -111,7 +111,10 @@ public class HarvestServiceImpl implements HarvestService {
     private void validateHarvestDetail(Harvest harvest, Tree tree, AddHarvestDetailRequest request) {
         // Check if tree has already been harvested this season
         if (tree.getHarvestDetails().stream()
-                .anyMatch(detail -> detail.getHarvest().getSeason() == harvest.getSeason())) {
+                .anyMatch(detail ->
+                        detail.getHarvest().getSeason() == harvest.getSeason()
+                        && detail.getHarvest().getHarvestDate() == harvest.getHarvestDate()
+                )) {
             throw new ValidationException("Tree has already been harvested this season");
         }
 
