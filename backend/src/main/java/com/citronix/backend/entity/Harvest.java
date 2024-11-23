@@ -4,6 +4,7 @@ import com.citronix.backend.util.constants.Season;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -28,7 +29,7 @@ public class Harvest {
     @NotNull(message = "Season is required")
     private Season season;
 
-    @Positive(message = "Total quantity must be positive")
+    @PositiveOrZero(message = "Total quantity must be positive")
     private Double totalQuantity;
 
     @OneToMany(mappedBy = "harvest", cascade = CascadeType.ALL, orphanRemoval = true)

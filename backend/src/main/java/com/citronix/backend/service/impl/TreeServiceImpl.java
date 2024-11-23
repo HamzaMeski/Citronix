@@ -57,9 +57,10 @@ public class TreeServiceImpl implements TreeService {
 
     @Override
     public TreeDetailResponse findById(Long id) {
-        return treeRepository.findById(id)
-                .map(treeMapper::toDetailResponse)
+        Tree tree =  treeRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Tree not found"));
+
+        return treeMapper.toDetailResponse(tree);
     }
 
     @Override
