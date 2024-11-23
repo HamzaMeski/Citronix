@@ -32,6 +32,7 @@ public interface HarvestMapper {
     @Mapping(target = "harvestId", source = "harvest.id")
     @Mapping(target = "treeId", source = "tree.id")
     @Mapping(target = "farmName", source = "tree.field.farm.name")
+    @Mapping(target = "fieldId", source = "tree.field.id")
     @Mapping(target = "treeStatus", source = "tree.status")
     @Mapping(target = "treeAge", expression = "java(calculateTreeAge(detail))")
     HarvestTreeDetailResponse toTreeDetailResponse(HarvestDetail detail);
