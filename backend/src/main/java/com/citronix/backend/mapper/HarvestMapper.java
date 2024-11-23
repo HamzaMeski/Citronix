@@ -26,6 +26,8 @@ public interface HarvestMapper {
     @Mapping(target = "sales", source = "sales")
     @Mapping(target = "totalRevenue", expression = "java(calculateTotalRevenue(harvest))")
     @Mapping(target = "averagePricePerKg", expression = "java(calculateAveragePricePerKg(harvest))")
+    @Mapping(target = "numberOfTrees", expression = "java(harvest.getHarvestDetails().size())")
+    @Mapping(target = "averageQuantityPerTree", expression = "java(calculateAverageQuantity(harvest))")
     HarvestDetailResponse toDetailResponse(Harvest harvest);
 
     @Mapping(target = "id", source = "id")
