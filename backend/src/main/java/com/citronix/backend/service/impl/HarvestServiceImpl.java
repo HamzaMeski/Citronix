@@ -15,15 +15,19 @@ import com.citronix.backend.repository.TreeRepository;
 import com.citronix.backend.service.HarvestService;
 import com.citronix.backend.util.constants.Season;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class HarvestServiceImpl implements HarvestService {
     private final HarvestRepository harvestRepository;
     private final TreeRepository treeRepository;
@@ -76,6 +80,12 @@ public class HarvestServiceImpl implements HarvestService {
     @Override
     public Page<HarvestResponse> getAll(Pageable pageable) {
         return harvestRepository.findAll(pageable)
+                .map(harvestMapper::toResponse);
+    }
+
+    @Override
+    public Page<HarvestResponse> getAllHarvestsBySeason(Season season, Pageable pageable) {
+        return harvestRepository.findAllBySeason(season, pageable)
                 .map(harvestMapper::toResponse);
     }
 
