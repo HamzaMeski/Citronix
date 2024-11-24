@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  test-db:
+    image: postgres:15-alpine
+    container_name: citronix-test-db
+    environment:
+      - POSTGRES_DB=citronix_test
+      - POSTGRES_USER=hamza
+      - POSTGRES_PASSWORD=hamza
+    ports:
+      - "5433:5432"  # Different port to avoid conflicts
+    networks:
+      - citronix-test-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hamza -d citronix_test"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  citronix-test-network:
+    driver: bridge
