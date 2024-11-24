@@ -29,6 +29,17 @@ Citronix is a sophisticated farm management system designed specifically for lem
   - Client management
   - Harvest-to-sale mapping
 
+ ## 🔒 Business Rules
+- Minimum field area: 0.1 hectare (1,000 m²)
+- Maximum field area: 50% of farm total area
+- Maximum fields per farm: 10
+- Tree density: 100 trees per hectare
+- Tree productivity:
+  - Young (<3 years): 2.5 kg/season
+  - Mature (3-10 years): 12 kg/season
+  - Old (>10 years): 20 kg/season
+
+
 ## 🔧 Technical Stack
 - **Backend**: Spring Boot 3.x
 - **Database**: PostgreSQL
@@ -63,18 +74,6 @@ sudo docker-compose -f docker-compose.dev.yml up --build
 6.If citronix_db doesn't created while building make sure to create it manually
 
 7.Enjoy the project
-
-
-## 🔒 Business Rules
-- Minimum field area: 0.1 hectare (1,000 m²)
-- Maximum field area: 50% of farm total area
-- Maximum fields per farm: 10
-- Tree density: 100 trees per hectare
-- Tree productivity:
-  - Young (<3 years): 2.5 kg/season
-  - Mature (3-10 years): 12 kg/season
-  - Old (>10 years): 20 kg/season
-
 
 ## 📈 Performance Considerations
 - Pagination for large datasets
