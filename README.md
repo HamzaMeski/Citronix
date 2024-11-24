@@ -32,11 +32,9 @@ Citronix is a sophisticated farm management system designed specifically for lem
 ## 🔧 Technical Stack
 - **Backend**: Spring Boot 3.x
 - **Database**: PostgreSQL
-- **API Documentation**: OpenAPI (Swagger)
 - **Testing**: JUnit 5, Mockito
 - **Build Tool**: Maven
 - **Containerization**: Docker
-- **Code Quality**: SonarQube
 
 ## 📋 Prerequisites
 - Docker and Docker Compose
