@@ -15,6 +15,7 @@ import com.citronix.backend.repository.TreeRepository;
 import com.citronix.backend.service.HarvestService;
 import com.citronix.backend.util.constants.Season;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ import java.time.LocalDate;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class HarvestServiceImpl implements HarvestService {
     private final HarvestRepository harvestRepository;
     private final TreeRepository treeRepository;
@@ -56,6 +58,10 @@ public class HarvestServiceImpl implements HarvestService {
                 .build();
 
         harvest.getHarvestDetails().add(detail);
+
+        // update the total quantity in that harvest
+        harvest.setTotalQuantity(harvest.getTotalQuantity() + request.getQuantity());
+
         harvestRepository.save(harvest);
     }
 
@@ -76,6 +82,12 @@ public class HarvestServiceImpl implements HarvestService {
     @Override
     public Page<HarvestResponse> getAll(Pageable pageable) {
         return harvestRepository.findAll(pageable)
+                .map(harvestMapper::toResponse);
+    }
+
+    @Override
+    public Page<HarvestResponse> getAllHarvestsBySeason(Season season, Pageable pageable) {
+        return harvestRepository.findAllBySeason(season, pageable)
                 .map(harvestMapper::toResponse);
     }
 
@@ -120,8 +132,12 @@ public class HarvestServiceImpl implements HarvestService {
 
         // Validate tree productivity based on status
         double expectedProductivity = calculateExpectedProductivity(tree);
-        if (request.getQuantity() > expectedProductivity * 1.2) { // 20% tolerance
+        if (request.getQuantity() > expectedProductivity * 1.5) { // +50% tolerance
             throw new ValidationException("Harvest quantity exceeds expected productivity for tree's age");
+        }
+
+        if(request.getQuantity() < expectedProductivity * 0.5) { // -50 tolerance
+            throw new ValidationException("Harvest quantity is too much under the expected productivity for tree's age");
         }
     }
 
@@ -137,6 +153,7 @@ public class HarvestServiceImpl implements HarvestService {
     }
 
     private double calculateExpectedProductivity(Tree tree) {
+        System.out.println("tree age: "+ tree.getStatus());
         return switch (tree.getStatus()) {
             case YOUNG -> 2.5;
             case MATURE -> 12.0;

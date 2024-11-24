@@ -6,6 +6,7 @@ import com.citronix.backend.dto.harvest.response.HarvestResponse;
 import com.citronix.backend.dto.harvest.response.HarvestDetailResponse;
 import com.citronix.backend.exception.ValidationException;
 import com.citronix.backend.service.HarvestService;
+import com.citronix.backend.util.constants.Season;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -46,6 +47,11 @@ public class HarvestController {
     @GetMapping
     public Page<HarvestResponse> getAll(Pageable pageable) {
         return harvestService.getAll(pageable);
+    }
+
+    @GetMapping("/season/{season}")
+    public Page<HarvestResponse> getAllHarvestsBySeason(@PathVariable Season season, Pageable pageable) {
+        return harvestService.getAllHarvestsBySeason(season, pageable);
     }
 
     @DeleteMapping("/{id}")

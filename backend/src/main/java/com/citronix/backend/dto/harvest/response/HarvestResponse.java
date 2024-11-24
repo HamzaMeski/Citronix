@@ -12,4 +12,5 @@ public class HarvestResponse {
     private Double totalQuantity;
     private int numberOfTrees;
     private Double averageQuantityPerTree;
+    private Double availableQuantity;
 }
