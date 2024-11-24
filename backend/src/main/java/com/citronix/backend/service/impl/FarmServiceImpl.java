@@ -1,6 +1,7 @@
 package com.citronix.backend.service.impl;
 
 import com.citronix.backend.dto.farm.request.CreateFarmRequest;
+import com.citronix.backend.dto.farm.request.FarmSearchCriteria;
 import com.citronix.backend.dto.farm.request.UpdateFarmRequest;
 import com.citronix.backend.dto.farm.response.FarmDetailResponse;
 import com.citronix.backend.dto.farm.response.FarmResponse;
@@ -10,6 +11,7 @@ import com.citronix.backend.exception.ValidationException;
 import com.citronix.backend.mapper.FarmMapper;
 import com.citronix.backend.repository.FarmRepository;
 import com.citronix.backend.service.FarmService;
+import com.citronix.backend.specification.FarmSpecification;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -81,6 +83,13 @@ public class FarmServiceImpl implements FarmService {
     private Farm getFarmById(Long id) {
         return farmRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Farm not found with id: " + id));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<FarmResponse> search(FarmSearchCriteria criteria, Pageable pageable) {
+        return farmRepository.findAll(FarmSpecification.withCriteria(criteria), pageable)
+                .map(farmMapper::toResponse);
     }
 
 
