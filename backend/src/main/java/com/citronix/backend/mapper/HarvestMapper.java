@@ -20,6 +20,7 @@ public interface HarvestMapper {
 
     @Mapping(target = "numberOfTrees", expression = "java(harvest.getHarvestDetails().size())")
     @Mapping(target = "averageQuantityPerTree", expression = "java(calculateAverageQuantity(harvest))")
+    @Mapping(target = "availableQuantity", expression = "java(calculateAvailableQuantity(harvest))")
     HarvestResponse toResponse(Harvest harvest);
 
     @Mapping(target = "treeDetails", source = "harvestDetails")
@@ -28,6 +29,7 @@ public interface HarvestMapper {
     @Mapping(target = "averagePricePerKg", expression = "java(calculateAveragePricePerKg(harvest))")
     @Mapping(target = "numberOfTrees", expression = "java(harvest.getHarvestDetails().size())")
     @Mapping(target = "averageQuantityPerTree", expression = "java(calculateAverageQuantity(harvest))")
+    @Mapping(target = "availableQuantity", expression = "java(calculateAvailableQuantity(harvest))")
     HarvestDetailResponse toDetailResponse(Harvest harvest);
 
     @Mapping(target = "id", source = "id")
@@ -58,5 +60,12 @@ public interface HarvestMapper {
     default int calculateTreeAge(HarvestDetail detail) {
         return Period.between(detail.getTree().getPlantingDate(), detail.getHarvest().getHarvestDate())
                 .getYears();
+    }
+
+    default Double calculateAvailableQuantity(Harvest harvest) {
+        Double soldQuantities = harvest.getSales().stream()
+                .mapToDouble(sale -> sale.getQuantity())
+                .sum();
+        return harvest.getTotalQuantity() - soldQuantities;
     }
 } 

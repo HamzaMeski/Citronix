@@ -32,6 +32,7 @@ public class SaleServiceImpl implements SaleService {
         validateSaleCreation(harvest, request);
 
         Sale sale = saleMapper.toEntity(request);
+        // harvest.setTotalQuantity(harvest.getTotalQuantity() - request.getQuantity());
         sale.setHarvest(harvest);
 
         return saleMapper.toResponse(saleRepository.save(sale));
