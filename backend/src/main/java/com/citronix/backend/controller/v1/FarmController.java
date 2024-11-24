@@ -1,6 +1,7 @@
 package com.citronix.backend.controller.v1;
 
 import com.citronix.backend.dto.farm.request.CreateFarmRequest;
+import com.citronix.backend.dto.farm.request.FarmSearchCriteria;
 import com.citronix.backend.dto.farm.request.UpdateFarmRequest;
 import com.citronix.backend.dto.farm.response.FarmDetailResponse;
 import com.citronix.backend.dto.farm.response.FarmResponse;
@@ -49,5 +50,13 @@ public class FarmController {
     @GetMapping
     public Page<FarmResponse> getAll(Pageable pageable) {
         return farmService.getAll(pageable);
+    }
+
+    @PostMapping("/search")
+    public Page<FarmResponse> search(
+            @RequestBody FarmSearchCriteria criteria,
+            Pageable pageable
+    ) {
+        return farmService.search(criteria, pageable);
     }
 } 
