@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: citronix-db
+    environment:
+      - POSTGRES_DB=citronix_db
+      - POSTGRES_USER=hamza
+      - POSTGRES_PASSWORD=hamza
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - citronix-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hamza -d citronix_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    container_name: citronix-app
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/citronix_db
+      - SPRING_DATASOURCE_USERNAME=hamza
+      - SPRING_DATASOURCE_PASSWORD=hamza
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_SHOW_SQL=true
+    ports:
+      - "8080:8080"
+    networks:
+      - citronix-network
+
+networks:
+  citronix-network:
+    driver: bridge
+
+volumes:
+  postgres_data:

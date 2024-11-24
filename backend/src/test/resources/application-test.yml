@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5433/citronix_test
+    username: hamza
+    password: hamza
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
